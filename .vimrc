@@ -9,7 +9,7 @@ call vundle#rc()
 
 Bundle 'gmarik/vundle'
 Bundle 'tpope/vim-fugitive'
-Bundle 'tpope/vim-rails.git'
+Bundle 'tpope/vim-rails'
 Bundle 'Lokaltog/vim-powerline'
 Bundle 'myusuf3/numbers.vim'
 Bundle 'kchmck/vim-coffee-script'
