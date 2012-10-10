@@ -1,0 +1,97 @@
+[alias]
+  co = checkout
+  ci = commit
+  st = status --short
+  br = branch
+
+  # Neat, high density display of the commit tree
+  hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=relative
+  type = cat-file -t
+  dump = cat-file -p
+
+  # Unmodify / discard a change
+  unmodify = checkout HEAD --
+  discard = checkout HEAD --
+
+  # Undo add (move changes from index to working directory)
+  unstage = reset HEAD
+
+  # Undo the previous commit, and leave the changes in the index
+  uncommit = reset --soft HEAD^
+
+  # Amend the last commit
+  amend = commit --amend
+
+  # Sync with master (rebase to keep the commit history clean)
+  sync = pull --rebase origin
+
+  # Unstash a stash (preferred over stash apply because it removes from list)
+  unstash = stash pop
+
+  # Show the last commit
+  last = log -1 HEAD --stat --abbrev-commit
+
+  # Show any changes from the last commit
+  difflast = diff HEAD^
+
+  # Start a branch
+  start = checkout -b
+
+  # Continue working on a branch
+  resume = checkout
+
+  # Finish a branch
+  finish = push origin
+
+  # Switch to master
+  master = checkout master
+
+  # Delete a branch
+  delete = branch -d
+
+  # Remove a remote branch
+  remove = !sh -c 'git push origin :$0'
+
+  # Show all branches
+  list = branch
+  branches = branch
+
+  # Rename a branch
+  rename = branch -m
+
+  # Search historical diffs for a keyword
+  pickax = !sh -c 'git log -S$0 --stat'
+
+  # Bend master at $0, moving all commits after $0 onto branch $1
+  # * Create branch $1 (but do not switch to it)
+  # * Point the current branch at $0 keeping local index and
+  #   working directory intact
+  bend = !sh -c 'git branch $1 && git reset --soft $0'
+
+[color]
+  # Color everything
+	ui = auto
+
+[core]
+	quotepath = false
+	autocrlf = input
+
+[diff]
+	renames = copies
+	mnemonicprefix = true
+
+[merge]
+	stat = true
+
+[advice]
+	statusHints = false
+
+[help]
+  # Automatically correct and execute mistyped commands after waiting
+  # for the given number of deciseconds (0.1s). If more than one command
+  # can be deduced from the entered text, nothing will be executed. If
+  # the value of this option is negative, the corrected command will be
+  # executed immediately. If the value is 0, the command will be shown
+  # but not executed. This is the default.
+  autocorrect = -1
+
