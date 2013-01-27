@@ -5,8 +5,17 @@ filetype plugin indent on
 
 " Vundle setup
 " =========================================================================
+set shell=/bin/zsh
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
+
+" Vitality
+let g:vitality_always_assume_iterm = 1
+
+" Powerline
+let g:Powerline_stl_path_style = 'short'
+" let g:Powerline_symbols = 'fancy'
+" let g:Powerline_dividers_override = ['>>', '>', '<<', '<']
 
 Bundle 'gmarik/vundle'
 Bundle 'tpope/vim-fugitive'
@@ -14,17 +23,15 @@ Bundle 'Lokaltog/vim-powerline'
 " Bundle 'myusuf3/numbers.vim'
 " Bundle 'tpope/vim-rails'
 Bundle 'kchmck/vim-coffee-script'
+Bundle 'bbommarito/vim-slim'
 Bundle 'sjl/vitality.vim'
 Bundle 'scrooloose/syntastic'
+Bundle 'Shougo/vimproc'
+Bundle 'eagletmt/ghcmod-vim'
+Bundle 'derekwyatt/vim-scala'
 
-" Powerline
-let g:Powerline_stl_path_style = 'short'
-" let g:Powerline_symbols = 'fancy'
-" let g:Powerline_dividers_override = ['>>', '>', '<<', '<']
-
-" Vitality
-let g:vitality_always_assume_iterm = 1
-
+" Config
+" =========================================================================
 set nocompatible
 set laststatus=2          " Always show status line
 set wildmenu              " Enhanced command-line completion
@@ -43,7 +50,7 @@ set scrolloff=4           " Start scrolling 4 lines before the horizontal window
 set encoding=utf-8        " Filetype encoding
 set hidden                " Buffer is hidden when abandoned
 set visualbell            " Visual indicator instead of system beep
-set cursorline            " Show vertical line underneath cursor
+" set cursorline            " Show vertical line underneath cursor
 set clipboard=unnamed     " Use unnamed clipboard
 set backspace=indent,eol,start
 set history=1000
@@ -59,6 +66,7 @@ set autowrite
 set shiftround
 set autoread
 
+" Invisibles
 set list                      " show hidden chars
 set listchars=tab:▸\ ,eol:¬   " symbols for hidden chars
 
@@ -92,18 +100,17 @@ set ofu=syntaxcomplete#Complete
 " Color scheme
 " =========================================================================
 syntax on
-set grepprg=grep\ -nH\ $*
-set colorcolumn=80
 set background=dark
-" colorscheme solarized
-" colorscheme tomorrow-night-bright
-" colorscheme molokai
-
 " let g:badwolf_darkgutter=1    " dark bg for left gutter
 colorscheme badwolf
+" colorscheme Peacock
+" let g:solarized_contrast="high"
+" colorscheme solarized
+" colorscheme tomorrow-night
 
+set colorcolumn=80
 " Color of ruler @ 80 col
-highlight ColorColumn ctermbg=0
+highlight ColorColumn ctermbg=234
 
 " Resize splits when the window is resized
 au VimResized * exe "normal! \<c-w>="
@@ -134,6 +141,7 @@ noremap <leader>W :w !sudo tee % > /dev/null<CR>
 " =========================================================================
 function! MarkdownMode()
   set nolist
+  set nonumber
   set spelllang=en_us
   set spell
 endfunction
