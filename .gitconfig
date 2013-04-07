@@ -54,7 +54,7 @@
 
   # Show all branches
   list = branch
-  branchlist = branch
+  branches = branch
 
   # Rename a branch
   rename = branch -m
