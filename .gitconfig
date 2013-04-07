@@ -46,28 +46,6 @@
   # Switch to master
   master = checkout master
 
-  # Delete a branch
-  delete = branch -d
-
-  # Remove a remote branch
-  remove = !sh -c 'git push origin :$0'
-
-  # Show all branches
-  list = branch
-  branches = branch
-
-  # Rename a branch
-  rename = branch -m
-
-  # Search historical diffs for a keyword
-  pickax = !sh -c 'git log -S$0 --stat'
-
-  # Bend master at $0, moving all commits after $0 onto branch $1
-  # * Create branch $1 (but do not switch to it)
-  # * Point the current branch at $0 keeping local index and
-  #   working directory intact
-  bend = !sh -c 'git branch $1 && git reset --soft $0'
-
 [color]
   # Color everything
 	ui = auto
