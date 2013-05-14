@@ -23,12 +23,22 @@ Bundle 'Lokaltog/vim-powerline'
 " Bundle 'myusuf3/numbers.vim'
 " Bundle 'tpope/vim-rails'
 Bundle 'kchmck/vim-coffee-script'
-Bundle 'bbommarito/vim-slim'
+Bundle 'slim-template/vim-slim'
 Bundle 'sjl/vitality.vim'
 Bundle 'scrooloose/syntastic'
+Bundle 'scrooloose/nerdtree'
 Bundle 'Shougo/vimproc'
 Bundle 'eagletmt/ghcmod-vim'
 Bundle 'derekwyatt/vim-scala'
+Bundle 'Valloric/YouCompleteMe'
+Bundle 'kien/ctrlp.vim'
+
+" Syntastic config
+let g:syntastic_html_checkers = []
+
+" closetag config
+let g:closetag_html_style=1 
+source ~/.vim/scripts/closetag.vim 
 
 " Config
 " =========================================================================
@@ -84,6 +94,7 @@ set wrap              " make long lines (>80) wrap to next line
 set textwidth=80      " line length
 set formatoptions=qrn1
 
+
 " Code folding
 " =========================================================================
 set foldcolumn=0
@@ -92,10 +103,12 @@ set foldmethod=indent " fold based on indent
 set foldnestmax=10    " deepest fold is 10 levels
 set nofoldenable      " don't fold by default
 
+
 " Completion
 " =========================================================================
 set dictionary="/usr/share/dict/words"
 set ofu=syntaxcomplete#Complete
+
 
 " Color scheme
 " =========================================================================
@@ -115,6 +128,7 @@ highlight ColorColumn ctermbg=234
 " Resize splits when the window is resized
 au VimResized * exe "normal! \<c-w>="
 
+
 " Custom key bindings
 " =========================================================================
 " Navigate between split buffers
@@ -122,6 +136,10 @@ map <C-J> <C-W>j<C-W>_
 map <C-K> <C-W>k<C-W>_
 map <C-H> <C-W>h<C-W>_
 map <C-L> <C-W>l<C-W>_
+
+" Open NERDTree
+map <C-n> :NERDTreeToggle<CR>
+
 
 " Strip trailing whitespaces (,ss)
 " =========================================================================
@@ -137,6 +155,7 @@ noremap <leader>ss :call StripWhitespace()<CR>
 " Save a file as root (,W)
 noremap <leader>W :w !sudo tee % > /dev/null<CR>
 
+
 " Markdown Mode
 " =========================================================================
 function! MarkdownMode()
@@ -150,7 +169,14 @@ au BufNewFile,BufRead *.{md,mdown,mkd,mkdn,markdown,mdwn} call MarkdownMode()
 if has("autocmd")
   " Treat .json files as .js
   autocmd BufNewFile,BufRead *.json setfiletype json syntax=javascript
+
   " Treat .less, .scss files as .css
   autocmd BufNewFile,BufRead *.less setfiletype less syntax=css
   autocmd BufNewFile,BufRead *.scss setfiletype scss syntax=css
+
+  " Treat .oat files as .c
+  autocmd BufNewFile,BufRead *.oat setfiletype oat syntax=c
+
+  " Open NERDTree on start
+  " autocmd vimenter * NERDTree
 endif
