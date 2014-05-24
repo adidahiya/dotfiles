@@ -1,3 +1,7 @@
+[user]
+  name = "Adi Dahiya"
+  email = "adi.dahiya14@gmail.com"
+
 [alias]
   co = checkout
   ci = commit
@@ -70,21 +74,22 @@
 
 [color]
   # Color everything
-	ui = auto
+  ui = auto
 
 [core]
-	quotepath = false
-	autocrlf = input
+  quotepath = false
+  autocrlf = input
+	excludesfile = /Users/adi/.gitignore_global
 
 [diff]
-	renames = copies
-	mnemonicprefix = true
+  renames = copies
+  mnemonicprefix = true
 
 [merge]
-	stat = true
+  stat = true
 
 [advice]
-	statusHints = false
+  statusHints = false
 
 [help]
   # Automatically correct and execute mistyped commands after waiting
@@ -95,3 +100,11 @@
   # but not executed. This is the default.
   autocorrect = -1
 
+[difftool "sourcetree"]
+  cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+  path = 
+[mergetool "sourcetree"]
+  cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+  trustExitCode = true
+[credential]
+  helper = osxkeychain
