@@ -18,11 +18,9 @@ let g:vitality_always_assume_iterm = 1
 " let g:Powerline_dividers_override = ['>>', '>', '<<', '<']
 
 Bundle 'gmarik/vundle'
-Bundle 'tpope/vim-fugitive'
 Bundle 'kchmck/vim-coffee-script'
 Bundle 'sjl/vitality.vim'
 Bundle 'scrooloose/syntastic'
-Bundle 'eagletmt/ghcmod-vim'
 Bundle 'bling/vim-airline'
 Bundle 'chriskempson/base16-vim'
 Bundle 'kien/ctrlp.vim'
