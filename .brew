@@ -21,6 +21,9 @@ brew install git
 brew install node
 brew install tree
 brew install fish
+brew install zsh
+brew install reattach-to-user-namespace
+brew install tmux
 
 # Remove outdated versions from the cellar
 brew cleanup
