@@ -1,13 +1,10 @@
-filetype on
-filetype indent on
-filetype plugin on
-filetype plugin indent on
+set nocompatible
+filetype off
 
 " Vundle setup
 " =========================================================================
 set shell=/bin/zsh
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+set rtp+=~/.vim/bundle/Vundle.vim
 
 " Vitality
 let g:vitality_always_assume_iterm = 1
@@ -17,18 +14,30 @@ let g:vitality_always_assume_iterm = 1
 " let g:Powerline_symbols = 'fancy'
 " let g:Powerline_dividers_override = ['>>', '>', '<<', '<']
 
-Bundle 'gmarik/vundle'
-Bundle 'kchmck/vim-coffee-script'
-Bundle 'sjl/vitality.vim'
-Bundle 'scrooloose/syntastic'
-Bundle 'bling/vim-airline'
-Bundle 'chriskempson/base16-vim'
-Bundle 'kien/ctrlp.vim'
-Bundle 'rizzatti/funcoo.vim'
-Bundle 'scrooloose/nerdtree'
-Bundle 'airblade/vim-gitgutter'
-" Bundle 'Lokaltog/vim-powerline'
-" Bundle 'myusuf3/numbers.vim'
+call vundle#begin()
+
+Plugin 'gmarik/Vundle.vim'
+Plugin 'sjl/vitality.vim'
+Plugin 'scrooloose/syntastic'
+Plugin 'bling/vim-airline'
+Plugin 'chriskempson/base16-vim'
+Plugin 'kien/ctrlp.vim'
+Plugin 'rizzatti/funcoo.vim'
+Plugin 'scrooloose/nerdtree'
+Plugin 'airblade/vim-gitgutter'
+Plugin 'leafgarland/typescript-vim'
+Plugin 'kchmck/vim-coffee-script'
+
+call vundle#end()
+
+filetype indent on
+filetype plugin on
+filetype plugin indent on
+
+" Typescript
+set rtp+=/usr/local/bin/node_modules/typescript-tools
+au BufRead,BufNewFile *.ts setlocal filetype=typescript
+
 
 " Config
 " =========================================================================
@@ -110,6 +119,7 @@ set background=dark
 " let g:badwolf_darkgutter=1    " dark bg for left gutter
 colorscheme badwolf
 " colorscheme tomorrow-night
+" colorscheme base16-google
 
 set colorcolumn=80
 " Color of ruler @ 80 col
@@ -159,4 +169,8 @@ if has("autocmd")
   " Treat .less, .scss files as .css
   autocmd BufNewFile,BufRead *.less setfiletype less syntax=css
   autocmd BufNewFile,BufRead *.scss setfiletype scss syntax=css
+  " Auto-show quick fix window for :make errors
+  autocmd QuickFixCmdPost [^l]* nested cwindow
+  autocmd QuickFixCmdPost    l* nested lwindow
 endif
+
