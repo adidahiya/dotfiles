@@ -27,6 +27,8 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'leafgarland/typescript-vim'
 Plugin 'kchmck/vim-coffee-script'
+Plugin 'mustache/vim-mustache-handlebars'
+Plugin 'groenewege/vim-less'
 
 call vundle#end()
 
@@ -38,6 +40,17 @@ filetype plugin indent on
 set rtp+=/usr/local/bin/node_modules/typescript-tools
 au BufRead,BufNewFile *.ts setlocal filetype=typescript
 
+"Syntastic
+" let g:syntastic_check_on_open = 1
+let g:syntastic_aggregate_errors = 1
+let g:syntastic_error_symbol = "✗"
+let g:syntastic_warning_symbol = "⚠"
+let g:syntastic_auto_jump = 2         " Jump to first *error* when opening file
+let g:syntastic_auto_loc_list = 1     " Show location list when errors detected
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_loc_list_height = 5
+
+let g:syntastic_typescript_tsc_args = "--target ES5"
 
 " Config
 " =========================================================================
@@ -115,11 +128,10 @@ set ofu=syntaxcomplete#Complete
 " Color scheme
 " =========================================================================
 syntax on
-set background=dark
+set background=light
 " let g:badwolf_darkgutter=1    " dark bg for left gutter
-colorscheme badwolf
-" colorscheme tomorrow-night
-" colorscheme base16-google
+" colorscheme badwolf
+colorscheme base16-bright
 
 set colorcolumn=80
 " Color of ruler @ 80 col
@@ -136,7 +148,7 @@ map <C-K> <C-W>k<C-W>_
 map <C-H> <C-W>h<C-W>_
 map <C-L> <C-W>l<C-W>_
 
-" Open NERDTree
+" Toggle NERDTree
 map <C-n> :NERDTreeToggle<CR>
 
 " Strip trailing whitespaces (,ss)
@@ -153,7 +165,7 @@ noremap <leader>ss :call StripWhitespace()<CR>
 " Save a file as root (,W)
 noremap <leader>W :w !sudo tee % > /dev/null<CR>
 
-" Markdown Mode
+" File-specific options
 " =========================================================================
 function! MarkdownMode()
   set nolist
@@ -172,5 +184,7 @@ if has("autocmd")
   " Auto-show quick fix window for :make errors
   autocmd QuickFixCmdPost [^l]* nested cwindow
   autocmd QuickFixCmdPost    l* nested lwindow
+  " Typescript files get 4 spaces
+  autocmd BufNewFile,BufRead *.ts set tabstop=4 softtabstop=4 shiftwidth=4
 endif
 
