@@ -25,10 +25,13 @@ Plugin 'kien/ctrlp.vim'
 Plugin 'rizzatti/funcoo.vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'airblade/vim-gitgutter'
+Plugin 'rizzatti/dash.vim'
+Plugin 'Valloric/YouCompleteMe'
 Plugin 'leafgarland/typescript-vim'
 Plugin 'kchmck/vim-coffee-script'
 Plugin 'mustache/vim-mustache-handlebars'
 Plugin 'groenewege/vim-less'
+Plugin 'fatih/vim-go'
 
 call vundle#end()
 
@@ -37,8 +40,8 @@ filetype plugin on
 filetype plugin indent on
 
 " Typescript
-set rtp+=/usr/local/bin/node_modules/typescript-tools
 au BufRead,BufNewFile *.ts setlocal filetype=typescript
+set rtp+=/usr/local/lib/node_modules/typescript-tools
 
 "Syntastic
 " let g:syntastic_check_on_open = 1
@@ -93,7 +96,7 @@ set list                      " show hidden chars
 set listchars=tab:▸\ ,eol:¬   " symbols for hidden chars
 
 " Font
-set guifont=Inconsolata:h14
+set guifont=Inconsolata\ for\ Powerline:h14
 
 " vim-airline config
 let g:airline_powerline_fonts=1
@@ -109,7 +112,7 @@ set autoindent        " copy indentation from previous line
 set copyindent        " when autoindenting, copy indent format of prev line
 set smartindent       " auto indent when it makes sense
 set wrap              " make long lines (>80) wrap to next line
-set textwidth=80      " line length
+set textwidth=120     " line length
 set formatoptions=qrn1
 
 " Code folding
@@ -124,17 +127,17 @@ set nofoldenable      " don't fold by default
 " =========================================================================
 set dictionary="/usr/share/dict/words"
 set ofu=syntaxcomplete#Complete
+set omnifunc=syntaxcomplete#Complete
 
 " Color scheme
 " =========================================================================
 syntax on
-set background=light
+set background=dark
 " let g:badwolf_darkgutter=1    " dark bg for left gutter
-" colorscheme badwolf
-colorscheme base16-bright
+colorscheme badwolf
+" colorscheme base16-bright
 
-set colorcolumn=80
-" Color of ruler @ 80 col
+set colorcolumn=120
 highlight ColorColumn ctermbg=234
 
 " Resize splits when the window is resized
@@ -151,8 +154,10 @@ map <C-L> <C-W>l<C-W>_
 " Toggle NERDTree
 map <C-n> :NERDTreeToggle<CR>
 
+" Replace word under cursor
+map <C-i> :%s/\<<C-r><C-w>\>/
+
 " Strip trailing whitespaces (,ss)
-" =========================================================================
 function! StripWhitespace()
   let save_cursor = getpos(".")
   let old_query = getreg('/')
@@ -165,6 +170,10 @@ noremap <leader>ss :call StripWhitespace()<CR>
 " Save a file as root (,W)
 noremap <leader>W :w !sudo tee % > /dev/null<CR>
 
+" Auto-show quick fix window for :make errors
+autocmd QuickFixCmdPost [^l]* nested cwindow
+autocmd QuickFixCmdPost    l* nested lwindow
+
 " File-specific options
 " =========================================================================
 function! MarkdownMode()
@@ -173,18 +182,16 @@ function! MarkdownMode()
   set spelllang=en_us
   set spell
 endfunction
-au BufNewFile,BufRead *.{md,mdown,mkd,mkdn,markdown,mdwn} call MarkdownMode()
+autocmd BufNewFile,BufRead *.{md,mdown,mkd,mkdn,markdown,mdwn} call MarkdownMode()
 
-if has("autocmd")
-  " Treat .json files as .js
-  autocmd BufNewFile,BufRead *.json setfiletype json syntax=javascript
-  " Treat .less, .scss files as .css
-  autocmd BufNewFile,BufRead *.less setfiletype less syntax=css
-  autocmd BufNewFile,BufRead *.scss setfiletype scss syntax=css
-  " Auto-show quick fix window for :make errors
-  autocmd QuickFixCmdPost [^l]* nested cwindow
-  autocmd QuickFixCmdPost    l* nested lwindow
-  " Typescript files get 4 spaces
-  autocmd BufNewFile,BufRead *.ts set tabstop=4 softtabstop=4 shiftwidth=4
-endif
+" Treat .json files as .js
+autocmd BufNewFile,BufRead *.json setfiletype json syntax=javascript
+
+autocmd FileType less setlocal tabstop=2 softtabstop=2 shiftwidth=2
+autocmd FileType scss setlocal tabstop=2 softtabstop=2 shiftwidth=2
+
+" Typescript files get 4 spaces
+autocmd FileType typescript setlocal tabstop=4 softtabstop=4 shiftwidth=4
+
+autocmd FileType javascript setlocal tabstop=2 softtabstop=2 shiftwidth=2
 
