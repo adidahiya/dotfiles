@@ -14,27 +14,6 @@ let g:vitality_always_assume_iterm = 1
 " let g:Powerline_symbols = 'fancy'
 " let g:Powerline_dividers_override = ['>>', '>', '<<', '<']
 
-call vundle#begin()
-
-Plugin 'gmarik/Vundle.vim'
-Plugin 'sjl/vitality.vim'
-Plugin 'scrooloose/syntastic'
-Plugin 'bling/vim-airline'
-Plugin 'chriskempson/base16-vim'
-Plugin 'kien/ctrlp.vim'
-Plugin 'rizzatti/funcoo.vim'
-Plugin 'scrooloose/nerdtree'
-Plugin 'airblade/vim-gitgutter'
-Plugin 'rizzatti/dash.vim'
-Plugin 'Valloric/YouCompleteMe'
-Plugin 'leafgarland/typescript-vim'
-Plugin 'kchmck/vim-coffee-script'
-Plugin 'mustache/vim-mustache-handlebars'
-Plugin 'groenewege/vim-less'
-Plugin 'fatih/vim-go'
-
-call vundle#end()
-
 filetype indent on
 filetype plugin on
 filetype plugin indent on
@@ -43,7 +22,33 @@ filetype plugin indent on
 au BufRead,BufNewFile *.ts setlocal filetype=typescript
 set rtp+=/usr/local/lib/node_modules/typescript-tools
 
+call vundle#begin()
+
+Plugin 'gmarik/Vundle.vim'
+Plugin 'tpope/vim-fugitive'
+Plugin 'sjl/vitality.vim'
+Plugin 'scrooloose/syntastic'
+Plugin 'bling/vim-airline'
+Plugin 'chriskempson/base16-vim'
+Plugin 'kien/ctrlp.vim'
+Plugin 'scrooloose/nerdtree'
+Plugin 'airblade/vim-gitgutter'
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'leafgarland/typescript-vim'
+Plugin 'kchmck/vim-coffee-script'
+Plugin 'mustache/vim-mustache-handlebars'
+Plugin 'groenewege/vim-less'
+Plugin 'fatih/vim-go'
+Plugin 'digitaltoad/vim-jade'
+Plugin 'Raimondi/delimitMate'
+" Plugin 'xolox/vim-misc'
+" Plugin 'xolox/vim-easytags'
+
+call vundle#end()
+
 "Syntastic
+" =========================================================================
+let g:syntastic_ignore_files = ['\m\.d\.ts$']
 " let g:syntastic_check_on_open = 1
 let g:syntastic_aggregate_errors = 1
 let g:syntastic_error_symbol = "✗"
@@ -53,7 +58,10 @@ let g:syntastic_auto_loc_list = 1     " Show location list when errors detected
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_loc_list_height = 5
 
-let g:syntastic_typescript_tsc_args = "--target ES5"
+let g:syntastic_typescript_tsc_exec = "/usr/local/bin/tsc"
+let g:syntastic_typescript_tsc_args = "--noImplicitAny --target ES5"
+let g:syntastic_scss_checkers = ['scss_lint']
+let g:syntastic_scss_lint_args = "-c " . getcwd() . "/config/scss_lint.yml"
 
 " Config
 " =========================================================================
@@ -129,6 +137,12 @@ set dictionary="/usr/share/dict/words"
 set ofu=syntaxcomplete#Complete
 set omnifunc=syntaxcomplete#Complete
 
+" CtrlP fuzzy finder
+" =========================================================================
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip
+let g:ctrlp_working_path_mode = 'r'
+let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+
 " Color scheme
 " =========================================================================
 syntax on
@@ -184,14 +198,13 @@ function! MarkdownMode()
 endfunction
 autocmd BufNewFile,BufRead *.{md,mdown,mkd,mkdn,markdown,mdwn} call MarkdownMode()
 
-" Treat .json files as .js
 autocmd BufNewFile,BufRead *.json setfiletype json syntax=javascript
+autocmd BufNewFile,BufRead *.d.ts setfiletype typescript syntax=typescript
 
 autocmd FileType less setlocal tabstop=2 softtabstop=2 shiftwidth=2
 autocmd FileType scss setlocal tabstop=2 softtabstop=2 shiftwidth=2
 
 " Typescript files get 4 spaces
 autocmd FileType typescript setlocal tabstop=4 softtabstop=4 shiftwidth=4
-
-autocmd FileType javascript setlocal tabstop=2 softtabstop=2 shiftwidth=2
+autocmd FileType javascript setlocal tabstop=4 softtabstop=4 shiftwidth=4
 

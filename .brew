@@ -17,6 +17,7 @@ brew install homebrew/dupes/grep
 
 # Install everything else
 brew install ack
+brew install cmake
 brew install git
 brew install node
 brew install tree
@@ -29,13 +30,13 @@ brew install haskell-platform
 
 # Cask
 brew install caskroom/cask/brew-cask
+brew cask install gpgtools
 brew cask install iterm2
 brew cask install macvim
 brew cask install virtualbox
 brew cask install eclipse-ide
 brew cask install eclipse-java
 brew cask install eclipse-platform
-brew cask install sauce
 brew cask install spectacle
 brew cask install karabiner
 brew cask install flux
@@ -44,7 +45,6 @@ brew cask install transmission
 brew cask install firefox
 brew cask install google-chrome
 brew cask install google-hangouts
-brew cask install adium
 brew cask install alfred
 brew cask install spotify
 brew cask install vlc
