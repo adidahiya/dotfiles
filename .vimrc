@@ -59,7 +59,8 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_loc_list_height = 5
 
 let g:syntastic_typescript_tsc_exec = "/usr/local/bin/tsc"
-let g:syntastic_typescript_tsc_args = "--noImplicitAny --target ES5"
+let g:syntastic_typescript_tsc_args = "--noImplicitAny --module commonjs --target ES5"
+let g:syntastic_typescript_tsc_tail = "> /tmp/vim-syntastic/tsc"
 let g:syntastic_scss_checkers = ['scss_lint']
 let g:syntastic_scss_lint_args = "-c " . getcwd() . "/config/scss_lint.yml"
 
