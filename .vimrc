@@ -35,12 +35,17 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'leafgarland/typescript-vim'
+Plugin 'pangloss/vim-javascript'
+Plugin 'jason0x43/vim-js-indent'
 Plugin 'kchmck/vim-coffee-script'
 Plugin 'mustache/vim-mustache-handlebars'
 Plugin 'groenewege/vim-less'
 Plugin 'fatih/vim-go'
 Plugin 'digitaltoad/vim-jade'
 Plugin 'Raimondi/delimitMate'
+Plugin 'wookiehangover/jshint.vim'
+Plugin 'shime/vim-livedown'
+" Plugin 'vim-scripts/vim-auto-save'
 " Plugin 'xolox/vim-misc'
 " Plugin 'xolox/vim-easytags'
 
@@ -58,11 +63,18 @@ let g:syntastic_auto_loc_list = 1     " Show location list when errors detected
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_loc_list_height = 5
 
+let g:syntastic_html_checkers = []
+
 let g:syntastic_typescript_tsc_exec = "/usr/local/bin/tsc"
 let g:syntastic_typescript_tsc_args = "--noImplicitAny --module commonjs --target ES5"
-let g:syntastic_typescript_tsc_tail = "> /tmp/vim-syntastic/tsc"
+" let g:syntastic_typescript_tsc_tail = "> ./build/vim-syntastic/tsc"
 let g:syntastic_scss_checkers = ['scss_lint']
-let g:syntastic_scss_lint_args = "-c " . getcwd() . "/config/scss_lint.yml"
+let g:syntastic_scss_lint_args = "-c scss_lint.yml"
+
+" Autosave
+" let g:auto_save_in_insert_mode = 1
+
+let g:JSHintUpdateWriteOnly = 1
 
 " Config
 " =========================================================================
@@ -105,7 +117,7 @@ set list                      " show hidden chars
 set listchars=tab:▸\ ,eol:¬   " symbols for hidden chars
 
 " Font
-set guifont=Inconsolata\ for\ Powerline:h14
+set guifont=Inconsolata\ for\ Powerline:h16
 
 " vim-airline config
 let g:airline_powerline_fonts=1
@@ -141,7 +153,7 @@ set omnifunc=syntaxcomplete#Complete
 " CtrlP fuzzy finder
 " =========================================================================
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip
-let g:ctrlp_working_path_mode = 'r'
+let g:ctrlp_working_path_mode = 'a'
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 
 " Color scheme
@@ -191,21 +203,30 @@ autocmd QuickFixCmdPost    l* nested lwindow
 
 " File-specific options
 " =========================================================================
-function! MarkdownMode()
-  set nolist
-  set nonumber
-  set spelllang=en_us
-  set spell
-endfunction
-autocmd BufNewFile,BufRead *.{md,mdown,mkd,mkdn,markdown,mdwn} call MarkdownMode()
+" function! MarkdownMode()
+"   set nolist
+"   set nonumber
+"   set spelllang=en_us
+"   set spell
+" endfunction
+" autocmd BufNewFile,BufRead *.{md,mdown,mkd,mkdn,markdown,mdwn} call MarkdownMode()
 
 autocmd BufNewFile,BufRead *.json setfiletype json syntax=javascript
 autocmd BufNewFile,BufRead *.d.ts setfiletype typescript syntax=typescript
 
+autocmd FileType css setlocal tabstop=2 softtabstop=2 shiftwidth=2
 autocmd FileType less setlocal tabstop=2 softtabstop=2 shiftwidth=2
 autocmd FileType scss setlocal tabstop=2 softtabstop=2 shiftwidth=2
 
 " Typescript files get 4 spaces
 autocmd FileType typescript setlocal tabstop=4 softtabstop=4 shiftwidth=4
 autocmd FileType javascript setlocal tabstop=4 softtabstop=4 shiftwidth=4
+autocmd FileType json setlocal tabstop=2 softtabstop=2 shiftwidth=2
+
+" Add typings to tsc compilation path
+function! SetupTypingsPath()
+  let syntastic_typescript_tsc_args = (g:syntastic_typescript_tsc_args . " " . expand("%:h") . "/../typings/*.d.ts")
+endfunction
+
+" autocmd BufNewFile,BufRead,BufWinEnter *.ts :call SetupTypingsPath()
 
