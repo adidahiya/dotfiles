@@ -9,18 +9,9 @@ set rtp+=~/.vim/bundle/Vundle.vim
 " Vitality
 let g:vitality_always_assume_iterm = 1
 
-" Powerline
-" let g:Powerline_stl_path_style = 'short'
-" let g:Powerline_symbols = 'fancy'
-" let g:Powerline_dividers_override = ['>>', '>', '<<', '<']
-
 filetype indent on
 filetype plugin on
 filetype plugin indent on
-
-" Typescript
-au BufRead,BufNewFile *.ts setlocal filetype=typescript
-set rtp+=/usr/local/lib/node_modules/typescript-tools
 
 call vundle#begin()
 
@@ -34,18 +25,21 @@ Plugin 'kien/ctrlp.vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'Valloric/YouCompleteMe'
+Plugin 'Raimondi/delimitMate'
+
+Plugin 'Shougo/vimproc.vim'
+Plugin 'Shougo/unite.vim'
+Plugin 'Shougo/unite-outline'
+
 Plugin 'leafgarland/typescript-vim'
+Plugin 'Quramy/tsuquyomi'
 Plugin 'pangloss/vim-javascript'
 Plugin 'jason0x43/vim-js-indent'
 Plugin 'kchmck/vim-coffee-script'
 Plugin 'mustache/vim-mustache-handlebars'
 Plugin 'groenewege/vim-less'
-Plugin 'fatih/vim-go'
-Plugin 'digitaltoad/vim-jade'
-Plugin 'Raimondi/delimitMate'
-Plugin 'wookiehangover/jshint.vim'
 Plugin 'shime/vim-livedown'
-" Plugin 'vim-scripts/vim-auto-save'
+
 " Plugin 'xolox/vim-misc'
 " Plugin 'xolox/vim-easytags'
 
@@ -56,8 +50,8 @@ call vundle#end()
 let g:syntastic_ignore_files = ['\m\.d\.ts$']
 " let g:syntastic_check_on_open = 1
 let g:syntastic_aggregate_errors = 1
-let g:syntastic_error_symbol = "✗"
-let g:syntastic_warning_symbol = "⚠"
+let g:syntastic_error_symbol = '✗'
+let g:syntastic_warning_symbol = '⚠'
 let g:syntastic_auto_jump = 2         " Jump to first *error* when opening file
 let g:syntastic_auto_loc_list = 1     " Show location list when errors detected
 let g:syntastic_always_populate_loc_list = 1
@@ -65,11 +59,9 @@ let g:syntastic_loc_list_height = 5
 
 let g:syntastic_html_checkers = []
 
-let g:syntastic_typescript_tsc_exec = "/usr/local/bin/tsc"
-let g:syntastic_typescript_tsc_args = "--noImplicitAny --module commonjs --target ES5"
-" let g:syntastic_typescript_tsc_tail = "> ./build/vim-syntastic/tsc"
+let g:syntastic_typescript_checkers = ['tslint']
 let g:syntastic_scss_checkers = ['scss_lint']
-let g:syntastic_scss_lint_args = "-c scss_lint.yml"
+let g:syntastic_scss_lint_args = '-c scss_lint.yml'
 
 " Autosave
 " let g:auto_save_in_insert_mode = 1
@@ -96,7 +88,6 @@ set scrolloff=4           " Start scrolling 4 lines before the horizontal window
 set encoding=utf-8        " Filetype encoding
 set hidden                " Buffer is hidden when abandoned
 set visualbell            " Visual indicator instead of system beep
-" set cursorline            " Show vertical line underneath cursor
 set clipboard=unnamed     " Use unnamed clipboard
 set backspace=indent,eol,start
 set history=1000
@@ -212,21 +203,16 @@ autocmd QuickFixCmdPost    l* nested lwindow
 " autocmd BufNewFile,BufRead *.{md,mdown,mkd,mkdn,markdown,mdwn} call MarkdownMode()
 
 autocmd BufNewFile,BufRead *.json setfiletype json syntax=javascript
-autocmd BufNewFile,BufRead *.d.ts setfiletype typescript syntax=typescript
 
 autocmd FileType css setlocal tabstop=2 softtabstop=2 shiftwidth=2
 autocmd FileType less setlocal tabstop=2 softtabstop=2 shiftwidth=2
 autocmd FileType scss setlocal tabstop=2 softtabstop=2 shiftwidth=2
-
-" Typescript files get 4 spaces
-autocmd FileType typescript setlocal tabstop=4 softtabstop=4 shiftwidth=4
 autocmd FileType javascript setlocal tabstop=4 softtabstop=4 shiftwidth=4
 autocmd FileType json setlocal tabstop=2 softtabstop=2 shiftwidth=2
 
-" Add typings to tsc compilation path
-function! SetupTypingsPath()
-  let syntastic_typescript_tsc_args = (g:syntastic_typescript_tsc_args . " " . expand("%:h") . "/../typings/*.d.ts")
-endfunction
-
-" autocmd BufNewFile,BufRead,BufWinEnter *.ts :call SetupTypingsPath()
+" Typescript
+autocmd BufRead,BufNewFile *.ts setlocal filetype=typescript
+autocmd BufRead,BufNewFile *.tsx setlocal filetype=typescript
+autocmd BufNewFile,BufRead *.d.ts setfiletype typescript syntax=typescript
+autocmd FileType typescript setlocal tabstop=4 softtabstop=4 shiftwidth=4 completeopt+=menu,preview
 
