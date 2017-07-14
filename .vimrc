@@ -40,12 +40,9 @@ Plugin 'mustache/vim-mustache-handlebars'
 Plugin 'groenewege/vim-less'
 Plugin 'shime/vim-livedown'
 
-" Plugin 'xolox/vim-misc'
-" Plugin 'xolox/vim-easytags'
-
 call vundle#end()
 
-"Syntastic
+" Syntastic
 " =========================================================================
 let g:syntastic_ignore_files = ['\m\.d\.ts$']
 " let g:syntastic_check_on_open = 1
@@ -58,15 +55,21 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_loc_list_height = 5
 
 let g:syntastic_html_checkers = []
-
-let g:syntastic_typescript_checkers = ['tslint']
+let g:syntastic_css_checkers = []
+let g:syntastic_javascript_checkers = ['eslint']
+let g:syntastic_typescript_checkers = ['tslint', 'tsuquyomi']
 let g:syntastic_scss_checkers = ['scss_lint']
 let g:syntastic_scss_lint_args = '-c scss_lint.yml'
+
+" Tsuquyomi
+let g:tsuquyomi_disable_quickfix = 1
+set ballooneval
+autocmd FileType typescript setlocal balloonexpr=tsuquyomi#balloonexpr()
 
 " Autosave
 " let g:auto_save_in_insert_mode = 1
 
-let g:JSHintUpdateWriteOnly = 1
+" let g:JSHintUpdateWriteOnly = 1
 
 " Config
 " =========================================================================
@@ -145,7 +148,7 @@ set omnifunc=syntaxcomplete#Complete
 " =========================================================================
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip
 let g:ctrlp_working_path_mode = 'a'
-let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+let g:ctrlp_custom_ignore = '\v[\/](node_modules|dist|bower_components)|(\.(git|hg|svn)$)'
 
 " Color scheme
 " =========================================================================
@@ -153,6 +156,7 @@ syntax on
 set background=dark
 " let g:badwolf_darkgutter=1    " dark bg for left gutter
 colorscheme badwolf
+" set background=light
 " colorscheme base16-bright
 
 set colorcolumn=120
@@ -202,6 +206,7 @@ autocmd QuickFixCmdPost    l* nested lwindow
 " endfunction
 " autocmd BufNewFile,BufRead *.{md,mdown,mkd,mkdn,markdown,mdwn} call MarkdownMode()
 
+autocmd BufNewFile,BufRead .eslintrc setfiletype yaml syntax=yaml
 autocmd BufNewFile,BufRead *.json setfiletype json syntax=javascript
 
 autocmd FileType css setlocal tabstop=2 softtabstop=2 shiftwidth=2
