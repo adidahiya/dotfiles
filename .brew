@@ -3,7 +3,7 @@ brew upgrade
 
 # Install GNU core utilities (those that come with OS X are outdated)
 brew install coreutils
-echo "Don’t forget to add $(brew --prefix coreutils)/libexec/gnubin to \$PATH."
+echo "Don't forget to add $(brew --prefix coreutils)/libexec/gnubin to \$PATH."
 
 # Install GNU `find`, `locate`, `updatedb`, and `xargs`, g-prefixed
 brew install findutils
@@ -15,41 +15,22 @@ brew install wget --enable-iri
 brew tap homebrew/dupes
 brew install homebrew/dupes/grep
 
-# Install everything else
-brew install ack
-brew install cmake
-brew install git
-brew install node
-brew install tree
-brew install fish
-brew install zsh
-brew install reattach-to-user-namespace
-brew install tmux
-brew install pass
-brew install haskell-platform
+# basic dev tools
+brew install vim fish tmux
+brew install --cask flux iterm2 macvim
 
-# Cask
-brew install caskroom/cask/brew-cask
-brew cask install gpgtools
-brew cask install iterm2
-brew cask install macvim
-brew cask install virtualbox
-brew cask install eclipse-ide
-brew cask install eclipse-java
-brew cask install eclipse-platform
-brew cask install spectacle
-brew cask install karabiner
-brew cask install flux
-brew cask install smcfancontrol
-brew cask install transmission
-brew cask install firefox
-brew cask install google-chrome
-brew cask install google-hangouts
-brew cask install alfred
-brew cask install spotify
-brew cask install vlc
-brew cask install evernote
-brew cask install dropbox
+# more dev tools
+brew install ack cmake ffmpeg gh go readline nvm reattach-to-user-namespace the_silver_searcher tree wine youtube-dl git-lfs zsh
+brew install --cask docker google-chrome gpg-suite-no-mail istat-menus monero-wallet tor-browser transmission
+
+# productivity
+brew install --cask alfred backblaze karabiner-elements monitorcontrol moom
+
+# audio/video
+brew install --cask audacity blackhole-16ch mediahuman-audio-converter swinsian vlc
+
+# creative
+brew install --cask cycling74-max fontbase obs touchdesigner iina
 
 # Remove outdated versions from the cellar
 brew cleanup
