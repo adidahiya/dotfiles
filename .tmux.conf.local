@@ -366,7 +366,7 @@ bind-key -r = resize-pane -D 1
 bind-key C-f last-window
 
 # shell stuffs
-set-option -g default-shell /usr/local/bin/fish 
+set-option -g default-shell /opt/homebrew/bin/fish
 set-option -g default-command "reattach-to-user-namespace -l fish"
 
 # move status line to bottom
