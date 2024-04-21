@@ -24,7 +24,7 @@ brew install ack cmake ffmpeg gh go readline nvm reattach-to-user-namespace the_
 brew install --cask docker google-chrome gpg-suite-no-mail istat-menus monero-wallet tor-browser transmission
 
 # productivity
-brew install --cask alfred backblaze karabiner-elements monitorcontrol moom
+brew install --cask alfred backblaze karabiner-elements monitorcontrol moom warp
 
 # audio/video
 brew install --cask audacity blackhole-16ch mediahuman-audio-converter swinsian vlc
