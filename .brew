@@ -20,7 +20,7 @@ brew install vim fish tmux
 brew install --cask flux iterm2 macvim
 
 # more dev tools
-brew install ack cmake ffmpeg gh go readline nvm reattach-to-user-namespace the_silver_searcher tree wine youtube-dl git-lfs zsh
+brew install ack cmake ffmpeg gh go readline nvm reattach-to-user-namespace the_silver_searcher tree wine youtube-dl git-lfs git-delta zsh mkcert 1password-cli
 brew install --cask docker google-chrome gpg-suite-no-mail istat-menus monero-wallet tor-browser transmission
 
 # productivity
